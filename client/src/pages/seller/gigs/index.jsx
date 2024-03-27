@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { GET_USER_GIGS_ROUTE } from "@/utils/constants";
 import { useCookies } from "react-cookie";
 import BackToTopButton from "@/components/BackToTopButton";
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
+import jwt from 'jsonwebtoken';
 
 function index() {
   const [gigs, setGigs] = useState([]);
@@ -15,7 +15,11 @@ function index() {
   useEffect(() => {
     const getGigs = async () => {
       try {
-        const response = await axios.get(GET_USER_GIGS_ROUTE, {
+        const decodedToken = jwt.decode(cookies.jwt);
+        const userId = decodedToken.sub;
+  
+        console.log(`${process.env.NEXT_PUBLIC_SERVER_URL}/gigs/user/${userId}`);
+        const response = await axios.get(`${process.env.NEXT_PUBLIC_SERVER_URL}/gigs/user/${userId}`, {
           withCredentials: true,
           headers: {
             Authorization: `Bearer ${cookies.jwt}`,
@@ -26,10 +30,9 @@ function index() {
         console.error("Failed to fetch gigs", error);
       }
     };
-
+  
     getGigs();
   }, []);
-
   return (
     <div className="min-h[80vh] my-10 mt-0 px-32">
       <h2 className="m-5 text-2xl font-bold">All your current Gigs</h2>

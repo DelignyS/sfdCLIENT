@@ -2,7 +2,7 @@
 const nextConfig = {
   reactStrictMode: true,
   env: {
-    SERVER_URL: "https://apiforspotfordev.onrender.com",
+    SERVER_URL: "localhost:3333",
   },
   images: {
     domains: ['localhost'],
