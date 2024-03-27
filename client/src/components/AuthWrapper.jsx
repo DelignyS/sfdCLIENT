@@ -19,7 +19,7 @@ function AuthWrapper({ type }) {
   useEffect(() => {
     if (cookies.jwt) {
       dispatch({ type: reducerCases.CLOSE_AUTH_MODAL });
-      //router.push("/dashboard");
+      router.push("/profilPage");
     }
   }, [cookies, dispatch, router]);
 
@@ -54,6 +54,9 @@ function AuthWrapper({ type }) {
           dispatch({ type: reducerCases.SET_USER, userInfo: userInfoResponse.data });
           window.location.reload();
         }
+  
+        // Redirect to profile page
+        router.push('/profilPage');
       }
     } catch (err) {
       console.log(err);

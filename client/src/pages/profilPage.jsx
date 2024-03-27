@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState , useEffect } from "react";
 import BackToTopButton from "@/components/BackToTopButton";
 import { useRouter } from "next/router";
 import { useStateProvider } from "@/context/StateContext";
@@ -19,6 +19,11 @@ function profilPage() {
     fullName: "",
     description: "",
   });
+  useEffect(() => {
+    if (!userInfo) {
+      router.push('/');
+    }
+  }, [userInfo, router]);
   const handleFile = (e) => {
     let file = e.target.files;
     const fileType = file[0]["type"];
@@ -31,60 +36,55 @@ function profilPage() {
     try {
       // Get JWT from cookie
       const jwt = document.cookie
-        .split('; ')
-        .find(row => row.startsWith('jwt='))
-        .split('=')[1];
-  
+        .split("; ")
+        .find((row) => row.startsWith("jwt="))
+        .split("=")[1];
+
       // Update user info
-      const response = await axios.patch(
-        SET_USER_INFO,
-        data,
-        {
-          headers: {
-            Authorization: `Bearer ${jwt}`
-          },
-          withCredentials: true
-        }
-      );
-  
+      const response = await axios.patch(SET_USER_INFO, data, {
+        headers: {
+          Authorization: `Bearer ${jwt}`,
+        },
+        withCredentials: true,
+      });
+
       if (response.data.userNameError) {
         setErrorMessage("Enter a Unique Username");
         return;
       }
-  
+
+
       // Upload profile image
       if (image) {
         const formData = new FormData();
-        formData.append('file', image);
-      
-        const imageResponse = await axios.post(
-          SET_USER_IMAGE,
-          formData,
-          {
-            withCredentials: true,
-            headers: {
-              'Content-Type': 'multipart/form-data',
-              Authorization: `Bearer ${jwt}`
-            },
-          }
-        );
-  
+        formData.append("file", image);
+
+        const imageResponse = await axios.post(SET_USER_IMAGE, formData, {
+          withCredentials: true,
+          headers: {
+            "Content-Type": "multipart/form-data",
+            Authorization: `Bearer ${jwt}`,
+          },
+        });
+
         if (imageResponse.data.error) {
           // Handle error
-          console.error('Failed to upload profile image');
+          console.error("Failed to upload profile image");
           return;
         }
-  
+
         dispatch({
           type: reducerCases.SET_USER,
           userInfo: {
             ...userInfo,
             ...data,
-            image: imageResponse.data.img ? HOST + "/" + imageResponse.data.img : false,
+            image: imageResponse.data.img
+              ? HOST + "/" + imageResponse.data.img
+              : false,
           },
         });
       }
-  
+
       router.push("/");
     } catch (err) {
       console.error(err);
@@ -96,8 +96,7 @@ function profilPage() {
 
   const inputClassName =
     "block p-4 w-full text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50  focus:ring-blue-500 focus:border-blue-500";
-  const labelClassName =
-    "mb-2 text-lg font-medium text-gray-900";
+  const labelClassName = "mb-2 text-lg font-medium text-gray-900";
 
   return (
     <>
@@ -175,12 +174,12 @@ function profilPage() {
                 </label>
                 <input
                   type="text"
-                  name="userName"
+                  name="username"
                   placeholder="Username"
                   className={inputClassName}
-                  value={data.userName}
-                  onChange={handleChange} 
-                  />
+                  value={data.username}
+                  onChange={handleChange}
+                />
               </div>
               <div>
                 <label className={labelClassName} htmlFor="FullName">
@@ -192,8 +191,8 @@ function profilPage() {
                   placeholder="Full Name"
                   className={inputClassName}
                   value={data.fullName}
-                  onChange={handleChange} 
-                  />
+                  onChange={handleChange}
+                />
               </div>
             </div>
             <div className="flex flex-col w-[500px] mt-8 justify-center text-center">

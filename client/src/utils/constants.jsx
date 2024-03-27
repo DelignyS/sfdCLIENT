@@ -15,10 +15,10 @@ export const GET_USER_INFO = `${HOST}/users/me`;
 export const SET_USER_INFO = `${HOST}/users`;
 export const SET_USER_IMAGE = `${HOST}/users/upload`;
 
-export const ADD_GIG_ROUTE = `${GIG_ROUTES}/add`;
-export const GET_USER_GIGS_ROUTE = `${GIG_ROUTES}/get-user-gigs`;
+export const ADD_GIG_ROUTE = `${HOST}/gigs/create`;
+export const GET_USER_GIGS_ROUTE = `${HOST}/gigs`;
 export const GET_GIG_DATA = `${GIG_ROUTES}/get-gig-data`;
-export const EDIT_GIG_DATA = `${GIG_ROUTES}/edit-gig`;
+export const EDIT_GIG_DATA = `${HOST}/gigs`;
 export const SEARCH_GIGS_ROUTE = `${GIG_ROUTES}/search-gigs`;
 export const CHECK_USER_ORDERED_GIG_ROUTE = `${GIG_ROUTES}/check-gig-order`;
 export const ADD_REVIEW = `${GIG_ROUTES}/add-review`;
