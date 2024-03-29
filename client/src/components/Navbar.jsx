@@ -275,11 +275,13 @@ function Navbar() {
               >
                 {userInfo?.profileImage ? (
                   <Image
-                    src={`http://localhost:3333/uploads/profiles/${userInfo.profileImage}`}
-                    alt="Profile"
-                    width={40}
-                    height={40}
-                    className="rounded-full"
+                  src={userInfo.profileImage}
+                  alt="Profile"
+                  height="0"
+                  width="0"
+                  sizes="100vw"
+                  className="rounded-full object-cover w-14 h-14"
+                  priority
                   />
                 ) : (
                   <div className="bg-blue-300 h-10 w-10 flex items-center justify-center rounded-full relative">
