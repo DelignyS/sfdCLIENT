@@ -55,7 +55,7 @@ function Navbar() {
     { linkName: "Explore", handler: "#", type: "link" },
     { linkName: "English", handler: "#", type: "link" },
     { linkName: "Become a Seller", handler: "#", type: "link" },
-    { linkName: "Sign in", handler: handleLogin, type: "button" },
+    { linkName: "Log-in", handler: handleLogin, type: "button" },
     { linkName: "Join", handler: handleSignup, type: "button2" },
   ];
 

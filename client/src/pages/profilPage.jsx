@@ -107,7 +107,7 @@ function profilPage() {
               <span className="bg-red-600 font-bold">{errorMessage}</span>
             </div>
           )}
-          <h2 className="text-3xl">Welcome to Your Spot</h2>
+          <h2 className="text-3xl pt-6 mt-6">Welcome to Your Spot</h2>
           <h4 className="text-xl">
             Please complete your Dev profile to get started
           </h4>

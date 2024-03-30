@@ -44,9 +44,6 @@ function Everything() {
           })}
         </ul>
       </div>
-      <div className="hidden xl:block relative h-70 w-2/3 mx-4">
-        <Image src="/everything.webp" fill alt="everything" />
-      </div>
     </div>
   );
 }

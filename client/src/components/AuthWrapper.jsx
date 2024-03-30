@@ -8,6 +8,7 @@ import { useRouter } from "next/router";
 import { useStateProvider } from "../context/StateContext";
 import { reducerCases } from "../context/constants";
 import { AiOutlineClose } from "react-icons/ai";
+import { GET_USER_INFO } from "../utils/constants";
 
 function AuthWrapper({ type }) {
   const [cookies, setCookies] = useCookies();
@@ -52,7 +53,7 @@ function AuthWrapper({ type }) {
   
         if (userInfoResponse.data) {
           dispatch({ type: reducerCases.SET_USER, userInfo: userInfoResponse.data });
-          window.location.reload();
+     
         }
   
         // Redirect to profile page

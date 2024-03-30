@@ -2,6 +2,9 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import axios from "axios";
 import ListItem from "@/components/ListItem";
+import BackToTopButton from "@/components/BackToTopButton";
+
+
 
 function Search() {
   const router = useRouter();
@@ -24,10 +27,14 @@ function Search() {
         );
         let fetchedGigs = response.data;
         if (q) {
-          fetchedGigs = fetchedGigs.filter(gig => gig.title.toLowerCase().includes(q.toLowerCase()));
+          fetchedGigs = fetchedGigs.filter((gig) =>
+            gig.title.toLowerCase().includes(q.toLowerCase())
+          );
         }
         if (category) {
-          fetchedGigs = fetchedGigs.filter(gig => gig.category.toLowerCase() === category.toLowerCase());
+          fetchedGigs = fetchedGigs.filter(
+            (gig) => gig.category.toLowerCase() === category.toLowerCase()
+          );
         }
         setGigs(fetchedGigs);
         setIsError(false);
@@ -38,7 +45,7 @@ function Search() {
         setIsLoading(false);
       }
     };
-  
+
     fetchGigs();
   }, [category, q]);
 
@@ -47,6 +54,8 @@ function Search() {
 
   return (
     <>
+   
+     
       {gigs && (
         <div className="mx-24 mb-24 pt-28">
           {q && (
@@ -54,7 +63,7 @@ function Search() {
               Results for <strong>{q}</strong>
             </h3>
           )}
-      
+
           <div>
             <div className="my-4">
               <span className="text-[#74767e] font-medium ">
@@ -66,7 +75,9 @@ function Search() {
                 <ListItem gig={gig} key={gig.id} />
               ))}
             </div>
+           
           </div>
+          <BackToTopButton />
         </div>
       )}
     </>
