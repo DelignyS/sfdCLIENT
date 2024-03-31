@@ -1,30 +1,33 @@
 import { useState, useEffect } from "react";
-import axios from 'axios';
-import { useCookies } from 'react-cookie';
+import axios from "axios";
+import { useCookies } from "react-cookie";
 import Image from "next/image";
 import { FaStar } from "react-icons/fa";
 import { AnimatePresence, motion } from "framer-motion";
 import Reviews from "@/components/Reviews";
-import AddReview from "@/components/AddReview"; 
+import AddReview from "@/components/AddReview";
 
 function Details({ gigData }) {
-  const [cookies] = useCookies(['jwt']);
+  const [cookies] = useCookies(["jwt"]);
   const [hasOrdered, setHasOrdered] = useState(false);
   const [index, setIndex] = useState(0);
-  const [selectedIndex, setSelectedIndex] = useState(null); 
+  const [selectedIndex, setSelectedIndex] = useState(null);
   const [isAccordionOpen, setIsAccordionOpen] = useState(false);
 
   useEffect(() => {
     const checkIfOrdered = async () => {
       try {
-        const response = await axios.get('https://apiforspotfordev.onrender.com/orders/buyer', {
-          headers: {
-            Authorization: `Bearer ${cookies.jwt}`,
-          },
-        });
+        const response = await axios.get(
+          "https://apiforspotfordev.onrender.com/orders/buyer",
+          {
+            headers: {
+              Authorization: `Bearer ${cookies.jwt}`,
+            },
+          }
+        );
 
         const orders = response.data;
-        if (orders.some(order => order.gigId === gigData.id)) {
+        if (orders.some((order) => order.gigId === gigData.id)) {
           setHasOrdered(true);
         }
       } catch (err) {
@@ -98,9 +101,7 @@ function Details({ gigData }) {
             </div>
           )}
         </div>
-        <strong className="font-medium">
-          {gigData.createdBy.username}
-        </strong>
+        <strong className="font-medium">{gigData.createdBy.username}</strong>
       </div>
       <div>
         <p className="line-clamp-2 text-[#404145]">{gigData.title}</p>
@@ -110,21 +111,32 @@ function Details({ gigData }) {
         <span>
           <strong className="font-medium">{gigData.averageRating}</strong>
         </span>
-        <span className="text-[#74767e]">
-          ({gigData.totalReviewsCount})
-        </span>
+        <span className="text-[#74767e]">({gigData.totalReviewsCount})</span>
       </div>
       <div>
         <strong className="font-medium">From {gigData.price}</strong>
       </div>
-      <div className="inline-block p-6 bg-black text-white rounded">{gigData.description}</div>
       <div className="inline-block p-6 bg-black text-white rounded">
-        <div
-          className="p-4 border rounded bg-white text-black mb-4 cursor-pointer"
-          onClick={() => setIsAccordionOpen(!isAccordionOpen)}
-        >
-          <h4 className="font-bold">Reviews</h4>
-        </div>
+        {gigData.description}
+      </div>
+      <div className="inline-block p-6 bg-black text-white rounded">
+      <div
+  className="p-2 border rounded bg-white text-black mb-4 cursor-pointer"
+  onClick={() => setIsAccordionOpen(!isAccordionOpen)}
+>
+  <h4 className="font-bold flex items-center justify-between">
+    Reviews
+    <button
+      className="ml-2 rounded-full w-6 h-6 flex items-center justify-center"
+      onClick={(e) => {
+        e.stopPropagation();
+        setIsAccordionOpen(!isAccordionOpen);
+      }}
+    >
+      {isAccordionOpen ? "-" : "+"}
+    </button>
+  </h4>
+</div>
         <AnimatePresence>
           {isAccordionOpen && (
             <motion.div
@@ -139,7 +151,9 @@ function Details({ gigData }) {
                       <FaStar key={i} />
                     ))}
                   </div>
-                  <h4 className="text-2xl font-bold">{review.reviewer.username}</h4>
+                  <h4 className="text-2xl font-bold">
+                    {review.reviewer.username}
+                  </h4>
                   <p>{review.createdAt}</p>
                   <p>{review.reviewText}</p>
                 </div>
