@@ -49,14 +49,14 @@ const reducer = (state, action) => {
         ...state,
         hasOrdered: action.hasOrdered,
       };
-    case reducerCases.ADD_REVIEW:
-      return {
-        ...state,
-        gigData: {
-          ...state.gigData,
-          reviews: [...state.gigData.reviews, action.newReview],
-        },
-      };
+      case reducerCases.ADD_REVIEW:
+        return {
+          ...state,
+          gigData: {
+            ...state.gigData,
+            reviews: state.gigData && state.gigData.reviews ? [...state.gigData.reviews, action.newReview] : [action.newReview],
+          },
+        };
     default:
       return state;
   }

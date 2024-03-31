@@ -21,12 +21,12 @@ export const GET_GIG_DATA = `${GIG_ROUTES}/get-gig-data`;
 export const EDIT_GIG_DATA = `${HOST}/gigs`;
 export const SEARCH_GIGS_ROUTE = `${GIG_ROUTES}/search-gigs`;
 export const CHECK_USER_ORDERED_GIG_ROUTE = `${GIG_ROUTES}/check-gig-order`;
-export const ADD_REVIEW = `${GIG_ROUTES}/add-review`;
+export const ADD_REVIEW = `${HOST}/reviews`;
 
 export const CREATE_ORDER = `${HOST}/orders/create`;
 export const ORDER_SUCCESS_ROUTE = `${HOST}/orders/confirm`;
 export const GET_BUYER_ORDERS_ROUTE = `${HOST}/orders/buyer`;
-export const GET_SELLER_ORDERS_ROUTE = `${ORDERS_ROUTES}/get-seller-orders`;
+export const GET_SELLER_ORDERS_ROUTE = `${HOST}/orders/seller`;
 
 export const GET_MESSAGES = `${MESSAGES_ROUTES}/get-messages`;
 export const ADD_MESSAGE = `${MESSAGES_ROUTES}/add-message`;

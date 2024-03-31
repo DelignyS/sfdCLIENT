@@ -12,12 +12,12 @@ function Index() {
   const [gigToDelete, setGigToDelete] = useState(null);
 
   useEffect(() => {
-    const getGigs = async () => {
+    const getGigsAndOrders = async () => {
       try {
         const decodedToken = jwt.decode(cookies.jwt);
         const userId = decodedToken.sub;
 
-        const response = await axios.get(
+        const { data: gigs } = await axios.get(
           `${process.env.NEXT_PUBLIC_SERVER_URL}/gigs/user/${userId}`,
           {
             withCredentials: true,
@@ -26,13 +26,29 @@ function Index() {
             },
           }
         );
-        setGigs(response.data);
+
+        const { data: orders } = await axios.get(
+          `${process.env.NEXT_PUBLIC_SERVER_URL}/orders/seller`,
+          {
+            withCredentials: true,
+            headers: {
+              Authorization: `Bearer ${cookies.jwt}`,
+            },
+          }
+        );
+
+        const gigsWithOrderCount = gigs.map((gig) => ({
+          ...gig,
+          orderCount: orders.filter((order) => order.gigId === gig.id).length,
+        }));
+
+        setGigs(gigsWithOrderCount);
       } catch (error) {
-        console.error("Failed to fetch gigs", error);
+        console.error("Failed to fetch gigs or orders", error);
       }
     };
 
-    getGigs();
+    getGigsAndOrders();
   }, []);
 
   const openModal = (id) => {
@@ -123,9 +139,7 @@ function Index() {
                   <td className="px-6 py-4">{gig.price}</td>
                   <td className="px-6 py-4">{gig.deliveryTime}</td>
                   <td className="px-6 py-4">
-                    {gig.orders && gig.orders.length > 0
-                      ? gig.orders.length
-                      : "Not Yet"}
+                    {gig.orderCount > 0 ? gig.orderCount : "Not Yet"}
                   </td>
                   <td className="px-6 py-4">{gig.deliveryTime}</td>
                   <td className="px-6 py-4 text-right">
@@ -176,6 +190,11 @@ function Index() {
           )}
         </AnimatePresence>
       </div>
+      <Link href="/seller/gigs/create">
+        <button className="mb-5 inline-block px-6 py-3 mt-8 text-white bg-blue-500 rounded hover:bg-blue-600">
+          Create New Gig
+        </button>
+      </Link>
     </div>
   );
 }

@@ -4,12 +4,15 @@ import axios from 'axios';
 import Details from "@/components/ItemDetails";
 import Pricing from "@/components/Pricing";
 import Image from 'next/image';
+import BackToTopButton from '@/components/BackToTopButton';
 
 
 function GigDetails() {
   const router = useRouter();
   const { gigId } = router.query;
   const [gigData, setGigData] = useState(null);
+  const [index, setIndex] = useState(0);
+
   useEffect(() => {
     const fetchGigData = async () => {
       try {
@@ -40,6 +43,7 @@ function GigDetails() {
     <div className="grid grid-cols-3 mx-32 gap-20 pt-28">
       <Details gigData={gigData} />
       <Pricing gigData={gigData} />
+      <BackToTopButton />
     </div>
   );
 }
