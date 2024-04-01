@@ -28,9 +28,9 @@ export const ORDER_SUCCESS_ROUTE = `${HOST}/orders/confirm`;
 export const GET_BUYER_ORDERS_ROUTE = `${HOST}/orders/buyer`;
 export const GET_SELLER_ORDERS_ROUTE = `${HOST}/orders/seller`;
 
-export const GET_MESSAGES = `${MESSAGES_ROUTES}/get-messages`;
-export const ADD_MESSAGE = `${MESSAGES_ROUTES}/add-message`;
-export const GET_UNREAD_MESSAGES = `${MESSAGES_ROUTES}/unread-messages`;
-export const MARK_AS_READ_ROUTE = `${MESSAGES_ROUTES}/mark-as-read`;
+export const GET_MESSAGES = `${HOST}/get-messages`;
+export const ADD_MESSAGE = `${HOST}/messages/`;
+export const GET_UNREAD_MESSAGES = `${HOST}/messages/unread`;
+export const MARK_AS_READ_ROUTE = `${HOST}/messages/read/`;
 
 export const GET_SELLER_DASHBOARD_DATA = `${DASHBOARD_DATA_ROUTES}/seller`;

@@ -1,11 +1,39 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { FiClock, FiRefreshCcw } from "react-icons/fi";
 import { BiRightArrowAlt } from "react-icons/bi";
 import { BsCheckLg } from "react-icons/bs";
 import { useRouter } from "next/router";
+import axios from "axios";
+import { useCookies } from "react-cookie";
 
 function Pricing({ gigData }) {
+  const [cookies] = useCookies(["jwt"]);
+  const [hasOrdered, setHasOrdered] = useState(false);
   const router = useRouter();
+
+  useEffect(() => {
+    const checkIfOrdered = async () => {
+      try {
+        const response = await axios.get(
+          "https://apiforspotfordev.onrender.com/orders/buyer",
+          {
+            headers: {
+              Authorization: `Bearer ${cookies.jwt}`,
+            },
+          }
+        );
+
+        const orders = response.data;
+        if (orders.some((order) => order.gigId === gigData.id)) {
+          setHasOrdered(true);
+        }
+      } catch (err) {
+        console.error(err);
+      }
+    };
+
+    checkIfOrdered();
+  }, [gigData, cookies]);
 
   return (
     <>
@@ -34,24 +62,26 @@ function Pricing({ gigData }) {
             <ul className="flex gap-1 flex-col">
               {gigData.features.map((feature) => (
                 <li key={feature} className="flex items-center gap-3">
-                  <BsCheckLg className="text-[#1DBF73] text-lg" />
+                  <BsCheckLg className="text-blue-400 text-lg" />
                   <span className="text-[#4f5156]">{feature}</span>
                 </li>
               ))}
             </ul>
             <button
-              className="flex items-center bg-[#1DBF73] text-white py-2 justify-center font-bold text-lg relative rounded"
+              className="flex items-center bg-blue-400 border border-blue-600 hover:bg-blue-500 hover:text-black  text-white py-2 justify-center font-bold text-lg relative rounded"
               onClick={() => router.push(`/checkout?gigId=${gigData.id}`)}
             >
               <span>Continue</span>
               <BiRightArrowAlt className="text-2xl absolute right-4" />
             </button>
           </div>
-          <div className="flex items-center justify-center mt-5">
-            <button className=" w-5/6 hover:bg-[#74767e] py-1 border border-[#74767e] px-5 text-[#6c6d75] hover:text-white transition-all duration-300 text-lg rounded font-bold">
-              Contact Me
-            </button>
-          </div>
+          {hasOrdered && (
+            <div className="flex items-center justify-center mt-5">
+              <button className=" w-5/6 hover:bg-[#74767e] py-1 border border-[#74767e] px-5 text-[#6c6d75] hover:text-white transition-all duration-300 text-lg rounded font-bold">
+                Contact Me
+              </button>
+            </div>
+          )}
         </div>
       )}
     </>

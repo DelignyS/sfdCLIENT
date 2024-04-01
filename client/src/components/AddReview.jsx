@@ -65,7 +65,7 @@ function AddReview() {
           ))}
         </div>
         <button
-          className="flex items-center bg-[#1DBF73] text-white py-2 justify-center text-md relative rounded px-5"
+          className="flex items-center border border-blue-600 bg-blue-400 hover:bg-blue-500 hover:text-black text-white py-2 justify-center text-md relative rounded px-5"
           onClick={addReview}
         >
           Add Review
