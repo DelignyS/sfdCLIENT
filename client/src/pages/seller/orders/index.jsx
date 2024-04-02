@@ -1,5 +1,5 @@
-import { useStateProvider } from "../../../context/StateContext";
-import { GET_SELLER_ORDERS_ROUTE } from "../../../utils/constants";
+import { useStateProvider } from "@/context/StateContext";
+import { GET_SELLER_ORDERS_ROUTE } from "@/utils/constants";
 import axios from "axios";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
@@ -28,7 +28,7 @@ function Orders() {
   }, [userInfo]);
   return (
     <div className="min-h-[80vh] my-10 mt-0 px-32">
-      <h3 className="m-5 text-2xl font-semibold">All your gigs ordered</h3>
+      <h3 className="m-5 text-2xl font-semibold">All your Works  Ordered</h3>
       <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
         <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
           <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
