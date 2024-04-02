@@ -37,9 +37,9 @@ function Index() {
           <div className="shadow-md h-max p-10 flex flex-col gap-5 min-w-96 w-96">
             <div className="flex gap-5 justify-center items-center">
               <div>
-                {userInfo?.imageName ? (
+                {userInfo?.profileImage ? (
                   <Image
-                    src={userInfo.imageName}
+                    src={userInfo.profileImage}
                     alt="Profile"
                     width={140}
                     height={140}
@@ -114,7 +114,7 @@ function Index() {
               </div>
             </div>
           </div>
-          
+        <BackToTopButton />        
         </div>
       )}
     </>
