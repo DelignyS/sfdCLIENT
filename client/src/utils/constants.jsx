@@ -31,6 +31,6 @@ export const GET_SELLER_ORDERS_ROUTE = `${HOST}/orders/seller`;
 export const GET_MESSAGES = `${HOST}/get-messages`;
 export const ADD_MESSAGE = `${HOST}/messages/`;
 export const GET_UNREAD_MESSAGES = `${HOST}/messages/unread`;
-export const MARK_AS_READ_ROUTE = `${HOST}/messages/read/`;
+export const MARK_AS_READ_ROUTE = `${HOST}/messages/read`;
 
-export const GET_SELLER_DASHBOARD_DATA = `${DASHBOARD_DATA_ROUTES}/seller`;
+export const GET_SELLER_DASHBOARD_DATA = `${HOST}/dashboard`;
